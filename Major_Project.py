@@ -61,7 +61,7 @@ class Player(pygame.sprite.Sprite):
         if self.rect.bottom > height:
             self.rect.bottom = height
             dy = 0
-    
+        #Collisions
         for tile in world.tile_list:
             if tile[1].colliderect(self.rect.x, self.rect.y,self.width,self.height):
                 if dx > 0:
@@ -76,7 +76,7 @@ class Player(pygame.sprite.Sprite):
                 if dy < 0:
                     self.rect.top = self.rect.bottom
                     self.vel_y = 0
-
+        #In the process of making a health bar
         pygame.draw.rect(window, "red", (15, 50, 200, 10))
         pygame.draw.rect(window, "green",(15, 50, player_health,10))
         
@@ -92,7 +92,7 @@ class Player(pygame.sprite.Sprite):
         
 player = Player(0,800)
 
-
+#Class created so that the window is broken up into individual tiles
 class world():
     def __init__(self,data):
         #creates a list of all the tiles spaces avalibe on the screen
@@ -126,7 +126,7 @@ class world():
 
 
                     
-
+#Each tile is 50 
 world_data =  [
 [0,0,0,0,0,2,2,2,2,2,0,0,0,0,0,0],
 [0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0],
