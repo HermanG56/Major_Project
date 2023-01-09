@@ -1,5 +1,5 @@
 import pygame
-import random
+import random2
 pygame.init()
 
 width = 800
@@ -94,6 +94,24 @@ class Player(pygame.sprite.Sprite):
         
 player = Player(0,800)
 
+
+class MonsterFire(pygame.sprite.Sprite):
+    def __init__(self, x, y): 
+        img = pygame.image.load('MonsterFire-removebg.png').convert_alpha()
+        self.image = pygame.transform.scale(img,(60,60))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.width = self.image.get_width()
+        self.height = self.image.get_height()
+
+        
+           
+    def draw(self): 
+        window.blit(self.image, self.rect)
+x = random2.randint(0, 800)
+monsterfire = MonsterFire(x,150)
+
 class Monster(pygame.sprite.Sprite):
     def __init__(self, x, y):
         img = pygame.image.load('ZeldaEnemy1.webp').convert_alpha()
@@ -110,25 +128,7 @@ class Monster(pygame.sprite.Sprite):
                    
 
         
-monster = Monster(400,100)
-
-
-class MonsterFire(pygame.sprite.Sprite):
-    def __init__(self, x, y): 
-        img = pygame.image.load('MonsterFire-removebg.png').convert_alpha()
-        self.image = pygame.transform.scale(img,(60,60))
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
-        self.width = self.image.get_width()
-        self.height = self.image.get_height()
-
-        
-           
-    def draw(self): 
-        window.blit(self.image, self.rect)
-x = random(0, 100)
-monsterfire = MonsterFire(x,150)
+monster = Monster(x,100)
 
 #Class created so that the window is broken up into individual tiles
 class world():
@@ -185,7 +185,7 @@ world_data =  [
 ]
 
 world = world(world_data)   
-
+y = 150
 while True:
     
     for event in pygame.event.get():
@@ -200,12 +200,13 @@ while True:
     monsterfire.draw()
     for i in range(10):
         y = y + 5
-        monsterfire = MonsterFire(x,150)
+        monsterfire = MonsterFire(x,y)
         monsterfire.update(0)
         if y == 850:
             y = 200
     pygame.display.flip()
     pygame.display.update()
+
 
 
 
