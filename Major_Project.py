@@ -1,4 +1,5 @@
 import pygame
+import random
 pygame.init()
 
 width = 800
@@ -126,8 +127,8 @@ class MonsterFire(pygame.sprite.Sprite):
            
     def draw(self): 
         window.blit(self.image, self.rect)
-
-monsterfire = MonsterFire(395,150)
+x = random(0, 100)
+monsterfire = MonsterFire(x,150)
 
 #Class created so that the window is broken up into individual tiles
 class world():
@@ -184,7 +185,7 @@ world_data =  [
 ]
 
 world = world(world_data)   
-y = 150
+
 while True:
     
     for event in pygame.event.get():
@@ -199,12 +200,15 @@ while True:
     monsterfire.draw()
     for i in range(10):
         y = y + 5
-        monsterfire = MonsterFire(395,y)
+        monsterfire = MonsterFire(x,150)
         monsterfire.update(0)
         if y == 850:
             y = 200
     pygame.display.flip()
     pygame.display.update()
+
+
+
 
 
 
