@@ -109,6 +109,7 @@ class MonsterFire(pygame.sprite.Sprite):
            
     def draw(self): 
         window.blit(self.image, self.rect)
+
 x = random2.randint(0, 800)
 monsterfire = MonsterFire(x,150)
 
@@ -186,8 +187,10 @@ world_data =  [
 
 world = world(world_data)   
 y = 150
+start_ticks=pygame.time.get_ticks()
+
 while True:
-    
+    seconds=(pygame.time.get_ticks()-start_ticks)/1000
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -204,6 +207,9 @@ while True:
         monsterfire.update(0)
         if y == 850:
             y = 200
+    for i in range(10):
+        if seconds > 5:
+        x = random2.randint(0, 800)
     pygame.display.flip()
     pygame.display.update()
 
