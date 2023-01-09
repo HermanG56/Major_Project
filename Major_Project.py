@@ -187,7 +187,7 @@ world_data =  [
 
 world = world(world_data)   
 y = 150
-start_ticks=pygame.time.get_ticks()
+start_ticks = pygame.time.get_ticks()
 
 while True:
     seconds=(pygame.time.get_ticks()-start_ticks)/1000
@@ -207,9 +207,12 @@ while True:
         monsterfire.update(0)
         if y == 850:
             y = 200
-    for i in range(10):
-        if seconds > 5:
+    
+    if seconds > 5:
         x = random2.randint(0, 800)
+        now = 0
+        pygame.time.get_ticks() = now
+        
     pygame.display.flip()
     pygame.display.update()
 
