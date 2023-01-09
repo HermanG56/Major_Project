@@ -17,20 +17,22 @@ spikeimg = pygame.image.load('spikeimg1.png')
 backimg = pygame.image.load('backimg.jpg')
 bg = pygame.transform.scale(backimg, (800,800))
 player_health = 200
+clock = pygame.time.Clock()
+
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
-        img = pygame.image.load('testplayer-removebg-preview.png').convert()
+        img = pygame.image.load('testplayer-removebg-preview.png').convert_alpha()
         self.image = pygame.transform.scale(img,(50,50))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.width = self.image.get_width()
-        self.height = self.image.get_height()
+        self.width = 30
+        self.height = 30
         self.vel_y = 0
         self.space = False
-
+        clock.tick(30)
         
-    def draw(self):
+    def draw(self): 
         window.blit(self.image, self.rect)
         
     def update(self, game_condition):
@@ -39,20 +41,18 @@ class Player(pygame.sprite.Sprite):
         dy = 0
         
         keys = pygame.key.get_pressed()
-
-
         
         if keys[pygame.K_LEFT] and self.rect.x > 0:
-            dx -= 1
+            dx -= 15
             
         if keys[pygame.K_RIGHT] and self.rect.x < 800 - 50:
-            dx += 1
+             dx += 15
                 
         if keys[pygame.K_UP] and self.rect.y > 0:
-            dy -= 1
+            dy -= 15
             
         if keys[pygame.K_DOWN] and self.rect.y < 800 - 50:
-            dy += 1
+            dy += 15
             
             
         self.rect.x += dx
@@ -64,6 +64,7 @@ class Player(pygame.sprite.Sprite):
         #Collisions
         for tile in world.tile_list:
             if tile[1].colliderect(self.rect.x, self.rect.y,self.width,self.height):
+                player_health -= 10
                 if dx > 0:
                     self.rect.right = self.rect.left
                     self.vel_y = 0
@@ -79,23 +80,59 @@ class Player(pygame.sprite.Sprite):
         #In the process of making a health bar
         pygame.draw.rect(window, "red", (15, 50, 200, 10))
         pygame.draw.rect(window, "green",(15, 50, player_health,10))
+    
         
-        
-        if player.colliderect(tile[1]):
-            player_health -= 10
+#        if player.colliderect(tile[1]):
+ #           player_health -= 10
             
                 
-        window.blit(self.image, self.rect)
+ #       window.blit(self.image, self.rect)
 
     
 
         
 player = Player(0,800)
 
+class Monster(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        img = pygame.image.load('ZeldaEnemy1.webp').convert_alpha()
+        self.image = pygame.transform.scale(img,(50,50))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.width = self.image.get_width()
+        self.height = self.image.get_height()
+           
+    def draw(self): 
+        window.blit(self.image, self.rect)
+
+                   
+
+        
+monster = Monster(400,100)
+
+
+class MonsterFire(pygame.sprite.Sprite):
+    def __init__(self, x, y): 
+        img = pygame.image.load('MonsterFire-removebg.png').convert_alpha()
+        self.image = pygame.transform.scale(img,(60,60))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.width = self.image.get_width()
+        self.height = self.image.get_height()
+
+        
+           
+    def draw(self): 
+        window.blit(self.image, self.rect)
+
+monsterfire = MonsterFire(395,150)
+
 #Class created so that the window is broken up into individual tiles
 class world():
     def __init__(self,data):
-        #creates a list of all the tiles spaces avalibe on the screen
+         #creates a list of all the tiles spaces avalibe on the screen
         self.tile_list = []
         #accociates values to specific tiles   
         rows = 0
@@ -119,7 +156,7 @@ class world():
 
                 col += 1
             rows += 1
-            
+    
     def draw(self):
         for tile in self.tile_list:
             window.blit(tile[0], tile[1])
@@ -147,7 +184,7 @@ world_data =  [
 ]
 
 world = world(world_data)   
-
+y = 150
 while True:
     
     for event in pygame.event.get():
@@ -158,7 +195,18 @@ while True:
     world.draw()
     player.draw()
     player.update(0)
+    monster.draw()
+    monsterfire.draw()
+    for i in range(10):
+        y = y + 5
+        monsterfire = MonsterFire(395,y)
+        monsterfire.update(0)
+        if y == 850:
+            y = 200
     pygame.display.flip()
     pygame.display.update()
+
+
+
 
 
