@@ -122,6 +122,7 @@ class Monster(pygame.sprite.Sprite):
         self.rect.y = y
         self.width = self.image.get_width()
         self.height = self.image.get_height()
+        self.NEW = pygame.USEREVENT + 1
            
     def draw(self): 
         window.blit(self.image, self.rect)
@@ -188,7 +189,6 @@ world_data =  [
 world = world(world_data)   
 y = 150
 start_ticks = pygame.time.get_ticks()
-
 while True:
     seconds=(pygame.time.get_ticks()-start_ticks)/1000
     for event in pygame.event.get():
@@ -208,19 +208,16 @@ while True:
         if y == 850:
             y = 200
     
-    if seconds > 5:
+    while seconds > 5 and seconds < 5.3:
         x = random2.randint(0, 800)
-        now = 0
-        pygame.time.get_ticks() = now
+        monster = Monster(x,100)
+        monster.draw()
+        monster.update(0)
+        seconds = 0
+    print(seconds)
+    
+
         
     pygame.display.flip()
     pygame.display.update()
-
-
-
-
-
-
-
-
 
