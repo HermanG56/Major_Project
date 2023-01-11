@@ -82,15 +82,11 @@ class Player(pygame.sprite.Sprite):
         pygame.draw.rect(window, "red", (15, 50, 200, 10))
         pygame.draw.rect(window, "green",(15, 50, player_health,10))
     
-        
-#        if player.colliderect(tile[1]):
- #           player_health -= 10
+        if player_health == 0:
             
-                
- #       window.blit(self.image, self.rect)
+            quit()
 
     
-
         
 player = Player(0,800)
 
@@ -189,7 +185,9 @@ world_data =  [
 world = world(world_data)   
 y = 150
 start_ticks = pygame.time.get_ticks()
+time_elapsed = 0
 while True:
+    dt = clock.tick()
     seconds=(pygame.time.get_ticks()-start_ticks)/1000
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -207,13 +205,19 @@ while True:
         monsterfire.update(0)
         if y == 850:
             y = 200
-    
-    while seconds > 5 and seconds < 5.3:
-        x = random2.randint(0, 800)
-        monster = Monster(x,100)
+    time_elapsed += dt
+    if time_elapsed > 1000:
+        x = random2.randint(0,800)
+        monster = Monster(x, 100)
         monster.draw()
         monster.update(0)
-        seconds = 0
+        time_elapsed = 0
+    #while seconds > 5 and seconds < 5.3:
+       # x = random2.randint(0, 800)
+        #monster = Monster(x,100)
+        #monster.draw()
+        #monster.update(0)
+        #seconds = 0
     print(seconds)
     
 
