@@ -38,6 +38,7 @@ class Player(pygame.sprite.Sprite):
         
     def update(self, game_condition):
         global player_health
+        global keys
         dx = 0
         dy = 0
         
@@ -106,9 +107,11 @@ class MonsterFire(pygame.sprite.Sprite):
     def draw(self): 
         window.blit(self.image, self.rect)
 
-x = random2.randint(0, 800)
-monsterfire = MonsterFire(x,150)
-
+monsterfire = MonsterFire(75,100)
+monsterfire1 = MonsterFire(150, 100)
+monsterfire2 = MonsterFire(400, 100)
+monsterfire3 = MonsterFire(600, 100)
+monsterfire4 = MonsterFire(475, 100)
 class Monster(pygame.sprite.Sprite):
     def __init__(self, x, y):
         img = pygame.image.load('ZeldaEnemy1.webp').convert_alpha()
@@ -126,7 +129,11 @@ class Monster(pygame.sprite.Sprite):
                    
 
         
-monster = Monster(x,100)
+monster = Monster(75,100)
+monster1 = Monster(150, 100)
+monster2 = Monster(400, 100)
+monster3 = Monster(600, 100)
+monster4 = Monster(475, 100)
 
 #Class created so that the window is broken up into individual tiles
 class world():
@@ -186,6 +193,8 @@ world = world(world_data)
 y = 150
 start_ticks = pygame.time.get_ticks()
 time_elapsed = 0
+keys = pygame.key.get_pressed()
+
 while True:
     dt = clock.tick()
     seconds=(pygame.time.get_ticks()-start_ticks)/1000
@@ -198,30 +207,55 @@ while True:
     player.draw()
     player.update(0)
     monster.draw()
-    monsterfire.draw()
+    monster.update(0)
     for i in range(10):
         y = y + 5
-        monsterfire = MonsterFire(x,y)
-        monsterfire.update(0)
+        if seconds > 0:
+            monsterfire = MonsterFire(75,y)
+            monsterfire.draw()
+            monsterfire.update(0)
+        if seconds > 5:
+            monsterfire1 = MonsterFire(150,y)
+            monsterfire1.draw()
+            monsterfire1.update(0)
+        if seconds > 10:
+            monsterfire2 = MonsterFire(400,y)
+            monsterfire2.draw()
+            monsterfire2.update(0)
+        if seconds > 15:
+            monsterfire3 = MonsterFire(600,y)
+            monsterfire3.draw()
+            monsterfire3.update(0)
+        if seconds > 20:
+            monsterfire4 = MonsterFire(475,y)
+            monsterfire4.draw()
+            monsterfire4.update(0)
         if y == 850:
             y = 200
-    time_elapsed += dt
-    if time_elapsed > 1000:
-        x = random2.randint(0,800)
-        monster = Monster(x, 100)
-        monster.draw()
-        monster.update(0)
-        time_elapsed = 0
-    #while seconds > 5 and seconds < 5.3:
-       # x = random2.randint(0, 800)
-        #monster = Monster(x,100)
-        #monster.draw()
-        #monster.update(0)
-        #seconds = 0
+            
+    if seconds > 5:
+        monster1.draw()
+        monster1.update(0)
+    if seconds > 10:
+        monster2.draw()
+        monster2.update(0)
+    if seconds > 15:
+        monster3.draw()
+        monster3.update(0)
+    if seconds > 20:
+        monster4.draw()
+        monster4.update(0)
+ 
+
+    
     print(seconds)
     
 
         
     pygame.display.flip()
     pygame.display.update()
+
+
+
+    
 
