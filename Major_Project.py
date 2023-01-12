@@ -17,6 +17,8 @@ bushimg = pygame.image.load('bush2.png')
 spikeimg = pygame.image.load('spikeimg1.png')
 backimg = pygame.image.load('backimg.jpg')
 bg = pygame.transform.scale(backimg, (800,800))
+endgame = pygame.image.load('game-over-neon-text-vector-260nw-1336349447.webp')
+eg = pygame.transform.scale(endgame, (800,800))
 player_health = 200
 clock = pygame.time.Clock()
 
@@ -250,6 +252,9 @@ while True:
     
     print(seconds)
     
+    if player_health == 0:
+        window.blit(eg, (0,0))
+        
 
         
     pygame.display.flip()
