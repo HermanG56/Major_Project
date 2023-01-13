@@ -237,6 +237,8 @@ while True:
             exit()
     window.blit(bg, (0,0))
     world.draw()
+    portal.draw()
+    portal.update(0)
     player.draw()
     player.update(0)
     monster.draw()
