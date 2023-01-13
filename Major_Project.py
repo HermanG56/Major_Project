@@ -85,9 +85,24 @@ class Player(pygame.sprite.Sprite):
         pygame.draw.rect(window, "red", (15, 50, 200, 10))
         pygame.draw.rect(window, "green",(15, 50, player_health,10))
     
-        if player_health == 0:
-            
-            quit()
+        def checkCollision(self, player, monsterfire, monsterfire1, monsterfire2, monsterfire3, monsterfire4):
+            global player_health
+            col = pygame.sprite.collide_rect(player, monsterfire)
+            col1 = pygame.sprite.collide_rect(player, monsterfire1)
+            col2 = pygame.sprite.collide_rect(player, monsterfire2)
+            col3 = pygame.sprite.collide_rect(player, monsterfire3)
+            col4 = pygame.sprite.collide_rect(player, monsterfire4)
+            if col == True:
+                player_health -= 10
+            if col1 == True:
+                player_health -= 10
+            if col2 == True:
+                player_health -= 10
+            if col3 == True:
+                player_health -= 10
+            if col4 == True:
+                player_health -= 10
+        checkCollision(self, player, monsterfire, monsterfire1, monsterfire3, monsterfire4)
 
     
         
