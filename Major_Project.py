@@ -130,15 +130,15 @@ class Player(pygame.sprite.Sprite):																																	# creating t
             col3 = pygame.sprite.collide_rect(player, monsterfire3)
             col4 = pygame.sprite.collide_rect(player, monsterfire4)
             if col == True:																																			# if theres a collision between player and monsterfire
-                player_health -= 30																																	# player health decreases by 10
+                player_health -= 40																																	# player health decreases by 10
             if col1 == True:
-                player_health -= 30
+                player_health -= 40
             if col2 == True:
-                player_health -= 30
+                player_health -= 40
             if col3 == True:
-                player_health -= 30
+                player_health -= 40
             if col4 == True:
-                player_health -= 30
+                player_health -= 40
         checkCollision(self, player, monsterfire, monsterfire1, monsterfire2, monsterfire3, monsterfire4)
 
     
