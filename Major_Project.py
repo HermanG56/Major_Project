@@ -19,8 +19,24 @@ backimg = pygame.image.load('backimg.jpg')
 bg = pygame.transform.scale(backimg, (800,800))
 endgame = pygame.image.load('game-over-neon-text-vector-260nw-1336349447.webp')
 eg = pygame.transform.scale(endgame, (800,800))
+wingame = pygame.image.load('congratulations-game-screen-golden-congrats-sign-vector-32216807.jpg')
+wg = pygame.transform.scale(wingame, (800,800))
 player_health = 200
 clock = pygame.time.Clock()
+
+class Portal(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        img = pygame.image.load('hiiiiiiiiii-removebg-preview.png').convert_alpha()
+        self.image = pygame.transform.scale(img, (100,100))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.width = self.image.get_width()
+        self.height = self.image.get_height()
+    def draw(self):
+        window.blit(self.image, self.rect)
+portal = Portal(700,200)
+
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
@@ -266,7 +282,9 @@ while True:
 
     
     print(seconds)
-    
+    win_collision = pygame.sprite.collide_rect(player, portal)
+    if win_collision == True:
+        window.blit(wg, (0,0))
     if player_health == 0:
         window.blit(eg, (0,0))
         
