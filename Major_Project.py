@@ -10,7 +10,6 @@ pygame.font.init()
 width = 800
 height = 800
 window = pygame.display.set_mode((width,height))																													# setting the width and height of the canvas
-white = (255, 255, 255)
 green = (0, 255, 0)
 blue = (0, 0, 128)
 pygame.display.set_caption("Major Project")																															# Captioning the display
@@ -21,7 +20,7 @@ bushimg = pygame.image.load('bush2.png')																															# loading
 spikeimg = pygame.image.load('spikeimg1.png')																														# loading the spike image
 backimg = pygame.image.load('backimg.jpg')																															# loading the background image
 bg = pygame.transform.scale(backimg, (800,800))																														# transforming the background image to fit the entire canvas
-endgame = pygame.image.load('neon_gameover_sign.png')																						# end screen
+endgame = pygame.image.load('neon_gameover_sign.png')																												# end screen
 eg = pygame.transform.scale(endgame, (800,800))
 wingame = pygame.image.load('congratulations-game-screen-golden-congrats-sign-vector-32216807.jpg')																	# This screen shows up when the player wins the game 
 wg = pygame.transform.scale(wingame, (800,800))
@@ -32,31 +31,31 @@ play = False
 end = False
 
 def text():
-    font = pygame.font.Font('freesansbold.ttf', 32)
-    text = font.render('Press any key', True, green, blue)
+    """Using this function to display text on the start and end screens """
+    font = pygame.font.Font('freesansbold.ttf', 32)																													# setting the font and font size
+    text = font.render('Press any key', True, green, blue)																											# writing the text to be displyed along with its colors.
     textRect = text.get_rect()
-    textRect.center = (width // 2, height // 2)
-    window.fill(white)
+    textRect.center = (400,700)																																		# the coordinates of the text box
     window.blit(text, textRect)
-
-
-
 
 player_health = 200																																					# setting player health to 200hp
 clock = pygame.time.Clock()																																			# to keep the count of seconds to spawn another enemy
 
-class Portal(pygame.sprite.Sprite):
+class Portal(pygame.sprite.Sprite):																																	# making this class to make the portal/finish line
     def __init__(self, x, y):
-        img = pygame.image.load('hiiiiiiiiii-removebg-preview.png').convert_alpha()
+        """ this function is used to set up the character"""
+        img = pygame.image.load('hiiiiiiiiii-removebg-preview.png').convert_alpha()																					# loading the image of the portal
         self.image = pygame.transform.scale(img, (100,100))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.width = self.image.get_width()
-        self.height = self.image.get_height()
+        self.width = self.image.get_width()																															# setting the width as the width of the image
+        self.height = self.image.get_height()																														# setting the height as the height of the image
     def draw(self):
+        """Keeps drawing the portal over and over again"""
         window.blit(self.image, self.rect)
-portal = Portal(700,200)
+        
+portal = Portal(700,200)																																			# making the portal at the following coordinates
 
 class Player(pygame.sprite.Sprite):																																	# creating the player class using sprites from pygame
     def __init__(self, x, y):
@@ -144,7 +143,7 @@ class Player(pygame.sprite.Sprite):																																	# creating t
 
     
         
-player = Player(650,200)																																				# spawning the player
+player = Player(0,750)																																				# spawning the player
 
 
 class MonsterFire(pygame.sprite.Sprite):																															# creating a class for the fireball the monster fires 
@@ -194,30 +193,29 @@ monster3 = Monster(600, 100)
 monster4 = Monster(475, 100)
 
      
-#Class created so that the window is broken up into individual tiles
-class world():
+class world():																																						# Class created so that the window is broken up into individual tiles
+
     def __init__(self,data):
-         #creates a list of all the tiles spaces avalibe on the screen
-        self.tile_list = []
-        #accociates values to specific tiles   
-        rows = 0
+        """ setting up the tiles """ 
+        self.tile_list = []																																			# creates a list of all the tiles spaces avalaible on the screen
+        rows = 0																																					# accociates values to specific tiles   
         for row in data:
             col = 0
             for tile in row:
-                if tile == 1:																																	# if the tile in the world data is 1
-                    img = pygame.transform.scale(bushimg, (70, 70))																								# a bush image is put up in that tile
+                if tile == 1:																																		# if the tile in the world data is 1
+                    img = pygame.transform.scale(bushimg, (70, 70))																									# a bush image is put up in that tile
                     img_rect = img.get_rect()
-                    img_rect.x = col * tile_size																												# setting the x coordinate of the bush
-                    img_rect.y = rows * tile_size																												# setting the y coordinate of the bush
+                    img_rect.x = col * tile_size																													# setting the x coordinate of the bush
+                    img_rect.y = rows * tile_size																													# setting the y coordinate of the bush
                     tile = (img,img_rect)
-                    self.tile_list.append(tile)																													# appending the tile to the empty tile_list
-                if tile == 2:																																	# if the tile in the world data is 2
-                    img = pygame.transform.scale(spikeimg, (30,30))																								# a spike image is put up in that tile
+                    self.tile_list.append(tile)																														# appending the tile to the empty tile_list
+                if tile == 2:																																		# if the tile in the world data is 2
+                    img = pygame.transform.scale(spikeimg, (30,30))																									# a spike image is put up in that tile
                     img_rect = img.get_rect()
-                    img_rect.x = col * tile_size																												# setting the x coordinate of the spike
-                    img_rect.y = rows * tile_size																												# setting the y coordinate of the spike
+                    img_rect.x = col * tile_size																													# setting the x coordinate of the spike
+                    img_rect.y = rows * tile_size																													# setting the y coordinate of the spike
                     tile = (img,img_rect)
-                    self.tile_list.append(tile)																													# appending the tile to the empty tile_list
+                    self.tile_list.append(tile)																														# appending the tile to the empty tile_list
 
                 col += 1
             rows += 1
@@ -230,7 +228,7 @@ class world():
 
                     
 
-world_data =  [																																					# each tile is 50
+world_data =  [																																						# each tile is 50
 [0,0,0,0,0,2,2,2,2,2,0,0,0,0,0,0],
 [0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0],
 [0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0],
@@ -255,88 +253,89 @@ keys = pygame.key.get_pressed()
 
 
 while play == False:
-    window.blit(startsc, (0,0))
-    text()
+    window.blit(startsc, (0,0))																																			# if play is false, display the start screen
+    text()																																								# calling the text function to display the text on the start screen
  
     for event in pygame.event.get():           
-        if event.type == pygame.KEYDOWN:
-            play = True
-            start_ticks = pygame.time.get_ticks()																															# starting the seconds to spawn another enemy after a few seconds
+        if event.type == pygame.KEYDOWN:																																# if any key is pressed
+            play = True																																					# play turns True
+            start_ticks = pygame.time.get_ticks()																														# starting the seconds to spawn another enemy after a few seconds
 
         
     pygame.display.flip()
-    pygame.display.update()
+    pygame.display.update()																																				# updating the screen
 
     
 
     
 while play == True:
     dt = clock.tick()
-    seconds=(pygame.time.get_ticks()-start_ticks)/1000
+    seconds=(pygame.time.get_ticks()-start_ticks)/1000																													# measuring the seconds
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-    window.blit(bg, (0,0))
+    window.blit(bg, (0,0))																																				# background
     world.draw()
-    player.draw()																																				# keeps on drawing the player
+    player.draw()																																						# keeps on drawing the player
     player.update(0)
-    monster.draw()																																				# keeps on drawing the monster
+    monster.draw()																																						# keeps on drawing the monster
     monster.update(0)
     portal.draw()
     portal.update(0)
-    for i in range(10):																																			# this loop helps in moving the fireball
+    for i in range(10):																																					# this loop helps in moving the fireball
         y = y + 5
-        if seconds > 0:																																			# only one fireball is spawned in the first 5 seconds
-            monsterfire = MonsterFire(75,y)																														# as y increments the fireball moves down the canvas
+        if seconds > 0:																																					# only one fireball is spawned in the first 5 seconds
+            monsterfire = MonsterFire(75,y)																																# as y increments the fireball moves down the canvas
             monsterfire.draw()
             monsterfire.update(0)
-        if seconds > 5:																																			# The second fireball spawns after 5 seconds
+        if seconds > 5:																																					# The second fireball spawns after 5 seconds
             monsterfire1 = MonsterFire(150,y)
             monsterfire1.draw()
             monsterfire1.update(0)
-        if seconds > 10:																																		# The third fireball spawns after 10 seconds
+        if seconds > 10:																																				# The third fireball spawns after 10 seconds
             monsterfire2 = MonsterFire(400,y)
             monsterfire2.draw()
             monsterfire2.update(0)
-        if seconds > 15:																																		# The fourth fireball spawns after 15 seconds
+        if seconds > 15:																																				# The fourth fireball spawns after 15 seconds
             monsterfire3 = MonsterFire(600,y)
             monsterfire3.draw()
             monsterfire3.update(0)
-        if seconds > 20:																																		# The fifth fireball spawns after 20 seconds
+        if seconds > 20:																																				# The fifth fireball spawns after 20 seconds
             monsterfire4 = MonsterFire(475,y)
             monsterfire4.draw()
             monsterfire4.update(0)
-        if y == 850:																																			# if the fireball goes out the canvas
-            y = 200																																				# the y coordinate of the firball is resetted to back where it started
+        if y == 850:																																					# if the fireball goes out the canvas
+            y = 200																																						# the y coordinate of the firball is resetted to back where it started
             
-    if seconds > 5:																																				# the second monster spawns after 5 seconds
+    if seconds > 5:																																						# the second monster spawns after 5 seconds
         monster1.draw()
         monster1.update(0)
-    if seconds > 10:																																			# the third monster spawns after 10 seconds
+    if seconds > 10:																																					# the third monster spawns after 10 seconds
         monster2.draw()
         monster2.update(0)
-    if seconds > 15:																																			# the fourth monster spawns after 15 seconds
+    if seconds > 15:																																					# the fourth monster spawns after 15 seconds
         monster3.draw()
         monster3.update(0)
-    if seconds > 20:																																			# the fifth monster spawns after 20 seconds
+    if seconds > 20:																																					# the fifth monster spawns after 20 seconds
         monster4.draw()
         monster4.update(0)
      
-    win_collision = pygame.sprite.collide_rect(player, portal)																									# win collision is true when the player reaches the portal
-    if win_collision == True:																																	# when win collision is true, show win screen
+    win_collision = pygame.sprite.collide_rect(player, portal)																											# win collision is true when the player reaches the portal
+    if win_collision == True:																																			# when win collision is true, show win screen
         window.blit(wg, (0,0))
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 quit()
-    if player_health == 0:																																		# when the player's health equals 0
+    if player_health == 0:																																				# when the player's health equals 0
         end = True
         while end == True:
-            window.blit(eg, (0,0))																																	# show end game over screen
+            window.blit(eg, (0,0))																																		# show end game over screen
+            text()																																						# calling the text function to display the text over the end screen
             pygame.display.flip()
             pygame.display.update()
             for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN:
+                if event.type == pygame.KEYDOWN:																														# if any key is pressed, quit game
                     quit()    
         
 
