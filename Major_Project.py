@@ -6,11 +6,13 @@
 
 import pygame																																						#importing the pygame module
 pygame.init()
-
+pygame.font.init()
 width = 800
 height = 800
 window = pygame.display.set_mode((width,height))																													# setting the width and height of the canvas
-
+white = (255, 255, 255)
+green = (0, 255, 0)
+blue = (0, 0, 128)
 pygame.display.set_caption("Major Project")																															# Captioning the display
 vel = 0
 game_condition = 0
@@ -28,6 +30,16 @@ startsc = pygame.transform.scale(startscreen, (800,800))
 keys = pygame.key.get_pressed()
 play = False
 end = False
+
+def text():
+    font = pygame.font.Font('freesansbold.ttf', 32)
+    text = font.render('Press any key', True, green, blue)
+    textRect = text.get_rect()
+    textRect.center = (width // 2, height // 2)
+    window.fill(white)
+    window.blit(text, textRect)
+
+
 
 
 player_health = 200																																					# setting player health to 200hp
@@ -244,6 +256,8 @@ keys = pygame.key.get_pressed()
 
 while play == False:
     window.blit(startsc, (0,0))
+    text()
+ 
     for event in pygame.event.get():           
         if event.type == pygame.KEYDOWN:
             play = True
