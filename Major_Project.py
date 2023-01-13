@@ -281,7 +281,6 @@ while True:
  
 
     
-    print(seconds)
     win_collision = pygame.sprite.collide_rect(player, portal)
     if win_collision == True:
         window.blit(wg, (0,0))
